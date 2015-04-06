@@ -1,0 +1,12 @@
+{
+  "name": "site-survey",
+  "author": "Brandon L. Clark",
+  "description": "Default data sets to be used for the site-template project.",
+  "version": "9.1.0",
+  "license": "MIT",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "mongoose": "~3.8.17"
+  }
+}
