@@ -11,4 +11,4 @@ This is a plug-in for the controller component of Project Mind Research.  The co
 
 #License (MIT)
 
-[Copyright (c) 2015 Brandon L. Clark]('LICENSE')
+[Copyright (c) 2015 Brandon L. Clark](LICENSE)
