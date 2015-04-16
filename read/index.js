@@ -2,7 +2,12 @@ var Survey = require('./survey');
 
 module.exports = function(Obj, cb){
 	if(Obj){
-		Survey(Obj, function(err, survey){
+		var search = Obj;
+		if(Obj.id){
+			search._id = Obj.id;
+			delete search.id;
+		}
+		Survey(search, function(err, survey){
 			if(err) return cb(err, Obj);
 			else return cb(null, survey);
 		});
