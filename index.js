@@ -30,6 +30,7 @@ module.exports.read = function(Obj, cb){
 		});
 	} else return cb({type:'!No object'}, Obj);
 };
+
 module.exports.update = function(Obj, cb){
 	if(Obj){
 		U(Obj, function(err, data){
