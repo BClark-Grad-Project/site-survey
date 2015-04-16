@@ -19,8 +19,7 @@ module.exports.create = function(Obj, cb){
 			    if(err) return cb(err, null);
 			    else return cb(null, data);
 		 });
-	  } else return cb('!No object', Obj);
-
+	  } else return cb({type:'!No object'}, Obj);
 };
 
 module.exports.read = function(Obj, cb){
@@ -29,7 +28,7 @@ module.exports.read = function(Obj, cb){
 			if(err) return cb(err, Obj);
 			else return cb(null, data);
 		});
-	} else return cb('!No object', Obj);
+	} else return cb({type:'!No object'}, Obj);
 };
 module.exports.update = function(Obj, cb){
 	if(Obj){
@@ -37,7 +36,7 @@ module.exports.update = function(Obj, cb){
 			if(err) return cb(err, null);
 			else return cb(null, data);
 		});
-	} else return cb('!No object', Obj);
+	} else return cb({type:'!No object'}, Obj);
 };
 
 module.exports.remove = function(Obj, cb){
@@ -46,5 +45,5 @@ module.exports.remove = function(Obj, cb){
 		    if(err) return cb(err, null);
 		    else return cb(null, data);
 		});
-	} else return cb('!No object', Obj);
+	} else return cb({type:'!No object'}, Obj);
 };
