@@ -1,6 +1,8 @@
 var mongo = require('mongoose');
 var config = require('./conf');
 var Survey = require('./models/survey');
+var Question = require('./models/question');
+var Option = require('./models/option');
 var conn = {};
 
 var mongoMessage = function(){
@@ -27,3 +29,5 @@ var url = dbConnection();
 conn = mongo.createConnection(url);	
 mongoMessage();
 module.exports.survey = conn.model('Survey', Survey);
+module.exports.question = conn.model('Question', Question);
+module.exports.option = conn.model('Option', Option);
