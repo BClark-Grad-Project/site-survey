@@ -36,20 +36,22 @@ module.exports.update = function(Obj, cb){
 		U(Obj, function(err, data){
 			if(err) return cb(err, null);
 			else {
-				if(Obj.question.option){
-					var newOption = {};
-					newOption.survey = Obj.question.survey;
-					newOption.question = question.id;					
-					if(Obj.label) newOption.label = Obj.label;
-					if(Obj.response) newOption.response = Obj.response;
-					if(Obj.placeholder) newOption.placeholder = Obj.placeholder;
-					C({option:newOption}, function(err, option){
-						if(err) return cb(err, Obj);
-						else {
-							data.option = option;
-							return cb(null, data);
-						}
-					});
+				if(Obj.question){
+					if(Obj.question.option){
+						var newOption = {};
+						newOption.survey = Obj.question.survey;
+						newOption.question = question.id;					
+						if(Obj.label) newOption.label = Obj.label;
+						if(Obj.response) newOption.response = Obj.response;
+						if(Obj.placeholder) newOption.placeholder = Obj.placeholder;
+						C({option:newOption}, function(err, option){
+							if(err) return cb(err, Obj);
+							else {
+								data.option = option;
+								return cb(null, data);
+							}
+						});
+					} else return cb(null, data);
 				} else return cb(null, data);
 			}
 		});

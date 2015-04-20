@@ -16,8 +16,10 @@ module.exports = function(Obj, cb){
 						var newO = {};
 						newO.survey = Obj.question.survey;
 						newO.question = question.id;
+						newO.option = Obj.question.option;
 						if(Obj.question.response) newO.response = Obj.question.response;
 						if(Obj.question.label) newO.label = Obj.question.label;
+						if(Obj.question.label) newO.label_placeholder = Obj.question.label_placeholder;
 						if(Obj.question.placeholder) newO.placeholder = Obj.question.placeholder;
 						Option(newO, function(err, option){
 							if(err) return cb(err, Obj);
