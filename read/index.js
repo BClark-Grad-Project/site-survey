@@ -12,12 +12,12 @@ module.exports = function(Obj, cb){
 		Survey(search, function(err, survey){
 			if(err) return cb(err, Obj);
 			else {
-				Question({survey:Obj.id}, function(err, questions){
+				Question({survey:search._id}, function(err, questions){
 					if(err) return cb(err, Obj);
 					else {
 						if(questions[0]){
 							survey.questions = questions;
-							Option({survey:Obj.id}, function(err, options){
+							Option({survey:search._id}, function(err, options){
 								if(err) return cb(err, Obj);
 								else {
 									if(options[0]){
