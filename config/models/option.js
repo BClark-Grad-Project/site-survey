@@ -20,7 +20,7 @@ Schema.methods.getData = function(){
 	      response:    this.response,
 		  active:      this.active
 		};
-	else if(this.option == 'provided') return {
+	else if(this.option == 'open') return {
 	  	  id:                this._id,
 		  survey:            this.survey,
 	      question:          this.question,
