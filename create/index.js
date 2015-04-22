@@ -15,7 +15,7 @@ module.exports = function(Obj, cb){
 					if(Obj.question.option){
 						var newO = {};
 						newO.survey = Obj.question.survey;
-						newO.question = question.question.id;
+						newO.question = question.id;
 						newO.option = Obj.question.option;
 						if(Obj.question.response) newO.response = Obj.question.response;
 						if(Obj.question.label) newO.label = Obj.question.label;
