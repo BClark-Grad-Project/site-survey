@@ -5,7 +5,7 @@ var Option   = require('./option');
 module.exports = function(Obj, cb){
 	if(Obj){
 		if(Obj.question){
-			var searchQ = {_id:Obj.id};
+			var searchQ = {_id:Obj.question.id};
 			var updateQ = {};
 			updateQ.question = Obj.question.question;
 			Question(searchQ, updateQ, function(err, question){
