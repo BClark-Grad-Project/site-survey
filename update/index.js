@@ -7,11 +7,7 @@ module.exports = function(Obj, cb){
 		if(Obj.question){
 			var searchQ = {_id:Obj.id};
 			var updateQ = {};
-			updateQ.survey = Obj.question.survey;
 			updateQ.question = Obj.question.question;
-			if(Obj.id){
-				delete updateQ.id;
-			}
 			Question(searchQ, updateQ, function(err, question){
 				if(err) return cb(err, Obj);
 				else return cb(null, question);
