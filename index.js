@@ -41,6 +41,7 @@ module.exports.update = function(Obj, cb){
 						var newOption = {};
 						newOption.survey = Obj.question.survey;
 						newOption.question = Obj.question.id;					
+						newOption.option = Obj.question.option;
 						if(Obj.question.label) newOption.label = Obj.question.label;
 						if(Obj.question.response) newOption.response = Obj.question.response;
 						if(Obj.question.placeholder) newOption.placeholder = Obj.question.placeholder;
