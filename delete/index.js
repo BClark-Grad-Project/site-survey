@@ -12,6 +12,11 @@ module.exports = function(Obj, cb){
 						else return cb(null, response);
 					});
 			});			
+		} else if(Obj.option){
+			Option({_id:Obj.option}, function(err, response){
+				if(err) return cb(err, null);
+				else return cb(null, response);
+			});
 		} else {
 			var search = Obj;
 			if(Obj.id){
