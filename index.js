@@ -38,21 +38,23 @@ module.exports.update = function(Obj, cb){
 			else {
 				if(Obj.question){
 					if(Obj.question.option){
-						var newOption = {};
-						newOption.survey = Obj.question.survey;
-						newOption.question = Obj.question.id;					
-						newOption.option = Obj.question.option;
-						if(Obj.question.label) newOption.label = Obj.question.label;
-						if(Obj.question.response) newOption.response = Obj.question.response;
-						if(Obj.question.placeholder) newOption.placeholder = Obj.question.placeholder;
-						if(Obj.question.label_placeholder) newOption.label_placeholder = Obj.question.label_placeholder;
-						C({option:newOption}, function(err, option){
-							if(err) return cb(err, Obj);
-							else {
-								data.option = option;
-								return cb(null, data);
-							}
-						});
+						if(Obj.question.type != 'opinion'){
+							var newOption = {};
+							newOption.survey = Obj.question.survey;
+							newOption.question = Obj.question.id;					
+							newOption.option = Obj.question.option;
+							if(Obj.question.label) newOption.label = Obj.question.label;
+							if(Obj.question.response) newOption.response = Obj.question.response;
+							if(Obj.question.placeholder) newOption.placeholder = Obj.question.placeholder;
+							if(Obj.question.label_placeholder) newOption.label_placeholder = Obj.question.label_placeholder;
+							C({option:newOption}, function(err, option){
+								if(err) return cb(err, Obj);
+								else {
+									data.option = option;
+									return cb(null, data);
+								}
+							});
+						} else return cb(null, data);
 					} else return cb(null, data);
 				} else return cb(null, data);
 			}
