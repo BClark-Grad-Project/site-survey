@@ -40,7 +40,7 @@ module.exports.survey    = Survey;
 module.exports.question  = Question;
 module.exports.option    = Option;
 
-module.exports.surveyForm = function(Obj){
+module.exports.surveyForm = function(Obj, cb){
 	if(Obj){
 		Survey({_id:Obj.id}, function(err, survey){
 			if(err) return cb(err, Obj);
@@ -54,9 +54,11 @@ module.exports.surveyForm = function(Obj){
 							else {
 								for(var i in survey[0].questions){
 									survey[0].questions[i].options = [];
-									for(var j in questions){
-										if(survey[0].questions[i].id == options[j].question){
-											survey[0].questions[i].options.push(options[j]);
+									for(var j in options){
+										if(options[j].question){                       
+											if(survey[0].questions[i].id.toString() == options[j].question.toString()){
+												survey[0].questions[i].options.push(options[j]);
+											}
 										}
 									}
 								}
