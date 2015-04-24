@@ -44,3 +44,9 @@ module.exports = function(Obj, cb){
 module.exports.survey    = Survey;
 module.exports.question  = Question;
 module.exports.option    = Option;
+
+module.exports.response = function(Obj){
+	if(Obj){
+	  //
+	} else return cb({type:'!No Object To Create'}, Obj);
+};

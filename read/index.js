@@ -40,3 +40,32 @@ module.exports.survey    = Survey;
 module.exports.question  = Question;
 module.exports.option    = Option;
 
+module.exports.surveyForm = function(Obj){
+	if(Obj){
+		Survey({_id:Obj.id}, function(err, survey){
+			if(err) return cb(err, Obj);
+			else {
+				Question({survey:Obj.id}, function(err, questions){
+					if(err) return cb(err, Obj);
+					else {
+						survey[0].questions = questions;
+						Option({survey:Obj.id}, function(err, options){
+							if(err) return cb(err, Obj);
+							else {
+								for(var i in survey[0].questions){
+									survey[0].questions[i].options = [];
+									for(var j in questions){
+										if(survey[0].questions[i].id == options[j].question){
+											survey[0].questions[i].options.push(options[j]);
+										}
+									}
+								}
+								return cb(null, survey);
+							}								
+						});
+					}
+				});
+			} 
+		});
+	} else return cb({type:'!No Object To Create'}, Obj);
+};

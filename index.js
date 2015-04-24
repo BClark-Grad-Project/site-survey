@@ -13,6 +13,7 @@ var R = require('./read');
 var U = require('./update');
 var D = require('./delete');
 
+module.exports.C = C;
 module.exports.create = function(Obj, cb){	
 	  if(Obj){
 		 C(Obj, function(err, data){
@@ -22,6 +23,7 @@ module.exports.create = function(Obj, cb){
 	  } else return cb({type:'!No object'}, Obj);
 };
 
+module.exports.R = R;
 module.exports.read = function(Obj, cb){
 	if(Obj){
 		R(Obj, function(err, data){
@@ -31,6 +33,7 @@ module.exports.read = function(Obj, cb){
 	} else return cb({type:'!No object'}, Obj);
 };
 
+module.exports.U = U;
 module.exports.update = function(Obj, cb){
 	if(Obj){
 		U(Obj, function(err, data){
@@ -62,6 +65,7 @@ module.exports.update = function(Obj, cb){
 	} else return cb({type:'!No object'}, Obj);
 };
 
+module.exports.D = D;
 module.exports.remove = function(Obj, cb){
 	if(Obj){
 		D(Obj, function(err, data){
