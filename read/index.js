@@ -62,7 +62,7 @@ module.exports.surveyForm = function(Obj, cb){
 										}
 									}
 								}
-								return cb(null, survey);
+								return cb(null, survey[0]);
 							}								
 						});
 					}
