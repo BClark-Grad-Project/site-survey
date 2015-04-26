@@ -7,6 +7,7 @@
   "main": "index.js",
   "private": true,
   "dependencies": {
-    "mongoose": "~3.8.17"
+    "mongoose": "~3.8.17",
+    "node-uuid": "~1.4.1"
   }
 }
