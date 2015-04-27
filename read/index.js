@@ -43,32 +43,40 @@ module.exports.option    = Option;
 module.exports.response  = Response;
 
 module.exports.responses  = function(Obj, cb){
-  if(Obj){
-    Response.sortASC(Obj, function(err, responses){
-      if(err) return cb(err, Obj);
-      else {
-        var userResponse = [];
-        var surveyResponse = [];
-        var prev = '';
-        for(var i in responses){
-          if(prev == responses[i].respondant){
-            userResponse.push(responses[i]);
-          } else {
-            if(prev == '') {
-              userResponse.push(responses[i]);
-            } else {
-              surveyResponse.push(userResponse);
-              userResponse = [];
-            }
-            prev = responses[i].respondant;          
-          }
-        }
-        console.log(surveyResponse);
-        return cb(null, surveyResponse);
-      }
-    });
-  } else return cb({type:'!No Object to lookup.'}, Obj);
-};
+	  if(Obj){
+	    Response.sortASC(Obj, function(err, responses){
+	      if(err) return cb(err, Obj);
+	      else {
+	        var userResponse = [];
+	        var surveyResponse = [];
+	        var next = '';
+	        for(var i in responses){
+	          if(next == responses[i].respondant){
+	            userResponse.push(responses[i]);
+	            var lengt = i;
+	            lengt++;
+	            if(responses[lengt]){
+	              if(responses[i].respondant !== responses[lengt].respondant){
+	                surveyResponse.push(userResponse);
+	                userResponse = [];
+	              }
+	            } else surveyResponse.push(userResponse);
+	          } else {
+	            if(next == '') {
+	              userResponse.push(responses[i]);
+	            } else {
+	              userResponse.push(responses[i]);
+	            }
+	          }
+	          next = responses[i].respondant;
+	          var leng = i;
+	          leng++;
+	        }
+	        return cb(null, surveyResponse);
+	      }
+	    });
+	  } else return cb({type:'!No Object to lookup.'}, Obj);
+	};
 
 module.exports.surveyForm = function(Obj, cb){
 	if(Obj){
