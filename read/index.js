@@ -1,6 +1,7 @@
 var Survey = require('./survey');
 var Question = require('./question');
 var Option   = require('./option');
+var Response   = require('./response');
 
 module.exports = function(Obj, cb){
 	if(Obj){
@@ -39,6 +40,35 @@ module.exports = function(Obj, cb){
 module.exports.survey    = Survey;
 module.exports.question  = Question;
 module.exports.option    = Option;
+module.exports.response  = Response;
+
+module.exports.responses  = function(Obj, cb){
+  if(Obj){
+    Response.sortASC(Obj, function(err, responses){
+      if(err) return cb(err, Obj);
+      else {
+        var userResponse = [];
+        var surveyResponse = [];
+        var prev = '';
+        for(var i in responses){
+          if(prev == responses[i].respondant){
+            userResponse.push(responses[i]);
+          } else {
+            if(prev == '') {
+              userResponse.push(responses[i]);
+            } else {
+              surveyResponse.push(userResponse);
+              userResponse = [];
+            }
+            prev = responses[i].respondant;          
+          }
+        }
+        console.log(surveyResponse);
+        return cb(null, surveyResponse);
+      }
+    });
+  } else return cb({type:'!No Object to lookup.'}, Obj);
+};
 
 module.exports.surveyForm = function(Obj, cb){
 	if(Obj){
