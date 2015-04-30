@@ -8,6 +8,7 @@
   "private": true,
   "dependencies": {
     "mongoose": "~3.8.17",
-    "node-uuid": "~1.4.1"
+    "node-uuid": "~1.4.1",
+    "sentiment":"~1.0.2"
   }
 }

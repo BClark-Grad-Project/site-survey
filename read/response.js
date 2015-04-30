@@ -18,7 +18,7 @@ module.exports = function(Obj, cb){
 };
 
 module.exports.sortASC = function(Obj, cb){
-  var val = Object.keys(Obj)[0];
+    //var val = Object.keys(Obj)[0];
 	Model
 		.find(Obj)
 		.sort({respondant:'asc'})
