@@ -2,7 +2,7 @@ var Survey = require('./survey');
 var Question = require('./question');
 var Option   = require('./option');
 var Response   = require('./response');
-var sentiment = require('sentiment');
+var Sentiment = require('sentiment');
 
 var findResponses = function(Obj, cb){
 	Response.sortASC(Obj, function(err, responses){
@@ -127,32 +127,60 @@ module.exports.surveyForm = function(Obj, cb){
 	} else return cb({type:'!No Object To Create'}, Obj);
 };
 
+var isUniqueResponse = function(id, Obj){
+  var count = 0;
+  for(var i in Obj){
+    if(Obj[i].question.toString() == id){
+      count++;
+    }
+  }
+  return 1 < count ? false : true;
+};
+
+
 module.exports.surveyResult = function(Obj, cb){
 	if(Obj){
 		findSurveyForm(Obj, function(err, form){
 			if(err) return cb(err, Obj);
 			else findResponses({survey:Obj.id}, function(err, responses){
 				if(err) return cb(err, Obj);
-				else {
+				else {					
 					for(var i in responses){
+					  var guage = true;
 						for(var n in responses[i]){
 							for(var j in form.questions){
 								if(responses[i][n].question.toString() == form.questions[j].id.toString()){
 									for(var k in form.questions[j].options){
 										if(form.questions[j].options[k].id.toString() == responses[i][n].option.toString()){
-										  if(form.questions[j].options[k].option != 'opinion'){
-										    if(form.questions[j].options[k].selected) form.questions[j].options[k].selected++;
-										    else form.questions[j].options[k].selected = 1;
+											if(form.questions[j].options[k].option != 'opinion'){
+											    if(form.questions[j].options[k].selected) form.questions[j].options[k].selected++;
+											    else form.questions[j].options[k].selected = 1;
+											    var checker = isUniqueResponse(form.questions[j].id.toString(), responses[i]);
+									            if(checker){
+									              if(form.questions[j].selected) form.questions[j].selected++;
+									              else form.questions[j].selected = 1;
+									            } else {
+									              if(guage){
+									                if(form.questions[j].selected) form.questions[j].selected++;
+									                else form.questions[j].selected = 1;
+									                guage = false;
+									              }
+									            }
 											} else {
-											  if(form.questions[j].options[k].response != ''){
+											  if(responses[i][n].response != undefined){
+												  var sentiment = Sentiment(responses[i][n].response);
 											      if(form.questions[j].options[k].selected) {
-											    	  form.questions[j].options[k].score.push(sentiment(form.questions[j].options[k].response).score);
+											    	  form.questions[j].options[k].score.push(sentiment.score);
+											    	  form.questions[j].options[k].comparative.push(sentiment.comparative);
 											    	  form.questions[j].options[k].selected++;
+											    	  form.questions[j].selected++;
 											      } else {
-											    	  form.questions[j].options[k].score = [];
+											    	  form.questions[j].options[k].score = ['Score',sentiment.score];
+											    	  form.questions[j].options[k].comparative = ['Relevance',sentiment.comparative];
 											    	  form.questions[j].options[k].selected = 1;
+											    	  form.questions[j].selected = 1;
 											      }
-										      }
+											  }											      
 											}
 										}
 									}
@@ -160,6 +188,7 @@ module.exports.surveyResult = function(Obj, cb){
 							}
 						}
 					}
+					console.log(form.questions[2].options[0].score,form.questions[2].options[0].comparative);
 					if(responses.length) form.responded = responses.length;
 					else form.responded = 0;
 					return cb(null, form);
