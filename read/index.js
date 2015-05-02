@@ -188,7 +188,6 @@ module.exports.surveyResult = function(Obj, cb){
 							}
 						}
 					}
-					console.log(form.questions[2].options[0].score,form.questions[2].options[0].comparative);
 					if(responses.length) form.responded = responses.length;
 					else form.responded = 0;
 					return cb(null, form);
