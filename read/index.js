@@ -68,6 +68,16 @@ var findSurveyForm = function(Obj, cb){
 	});
 };
 
+var isUniqueResponse = function(id, Obj){
+  var count = 0;
+  for(var i in Obj){
+    if(Obj[i].question.toString() == id){
+      count++;
+    }
+  }
+  return 1 < count ? false : true;
+};
+
 module.exports = function(Obj, cb){
 	if(Obj){
 		var search = Obj;
@@ -127,16 +137,13 @@ module.exports.surveyForm = function(Obj, cb){
 	} else return cb({type:'!No Object To Create'}, Obj);
 };
 
-var isUniqueResponse = function(id, Obj){
-  var count = 0;
-  for(var i in Obj){
-    if(Obj[i].question.toString() == id){
-      count++;
-    }
-  }
-  return 1 < count ? false : true;
-};
 
+module.exports.recentSurveys = function(Obj, cb){
+	Survey.recent(5, function(err, surveys){
+		if(err) return cb(err, Obj);
+		else return cb(null, surveys);		
+	});	
+};
 
 module.exports.surveyResult = function(Obj, cb){
 	if(Obj){

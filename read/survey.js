@@ -17,3 +17,21 @@ module.exports = function(Obj, cb){
 			}
 		});	
 };
+
+
+module.exports.recent = function(count, cb){
+	Survey
+		.find({active:true, scale:{'$ne': 0 }})
+		.sort({started: -1})
+		.limit(count)
+		.exec(function(err, data){
+			if(err){return cb(err, null);}
+			
+			var items = [];
+			for(i in data){
+				items[i] = data[i].getData();
+			}
+			
+			return cb(null, items);
+		});	
+};
