@@ -21,8 +21,8 @@ module.exports = function(Obj, cb){
 
 module.exports.recent = function(count, cb){
 	Survey
-		.find({active:true, scale:{'$ne': 0 }})
-		.sort({started: -1})
+		.find({active:true, state:{$ne: 0 }})
+		.sort({start: -1})
 		.limit(count)
 		.exec(function(err, data){
 			if(err){return cb(err, null);}
