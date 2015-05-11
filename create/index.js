@@ -1,7 +1,8 @@
 var Survey   = require('./survey');
 var Question = require('./question');
 var Option   = require('./option');
-var Response   = require('./response');
+var Response = require('./response');
+var Request  = require('./request');
 
 var uuid = require('node-uuid');
 
@@ -48,6 +49,7 @@ module.exports.survey    = Survey;
 module.exports.question  = Question;
 module.exports.option    = Option;
 module.exports.response  = Response;
+module.exports.request   = Request;
 
 module.exports.respond = function(Obj){
 	if(Obj){
@@ -59,4 +61,17 @@ module.exports.respond = function(Obj){
 		});
 	  }
 	} else console.log('There was no Array to create response.');
+};
+
+
+module.exports.requestResponse = function(Obj, cb){
+	var newObj = [];
+	if(Obj[0]){
+		for(var i in Obj){
+			Request(Obj[i], function(err, data){
+				newObj.push(data);				
+			});
+		}
+	}
+	return cb(null, newObj);
 };

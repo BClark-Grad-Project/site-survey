@@ -3,8 +3,10 @@ var mongo  = require('mongoose');
 var Schema = mongo.Schema({
     survey:      {type: mongo.Schema.Types.ObjectId, ref:  'Survey', required: true},
     type:        {type: String, required:true},
-    question:    {type: String, required:true},
-    active:      {type: Boolean, 'default': true}
+    name:        {type: String, required:true},
+    value:       {type: String, required:true},
+    sent:        {type: String},
+    status:      {type: Boolean, 'default': false}
 });
 
 Schema.methods.getData = function(){
@@ -12,8 +14,10 @@ Schema.methods.getData = function(){
   	  id:          this._id,
 	  survey:      this.survey,
       type:        this.type,
-      question:    this.question,
-	  active:      this.active
+      name:        this.name,
+      value:       this.value,
+      sent:        this.sent,
+	  status:      this.status
 	};
 };
 

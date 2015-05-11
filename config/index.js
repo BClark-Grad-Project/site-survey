@@ -4,6 +4,7 @@ var Survey = require('./models/survey');
 var Question = require('./models/question');
 var Option = require('./models/option');
 var Response = require('./models/response');
+var Request = require('./models/request');
 var conn = {};
 
 var mongoMessage = function(){
@@ -33,3 +34,4 @@ module.exports.survey = conn.model('Survey', Survey);
 module.exports.question = conn.model('Question', Question);
 module.exports.option = conn.model('Option', Option);
 module.exports.response = conn.model('Response', Response);
+module.exports.response = conn.model('Request', Request);
