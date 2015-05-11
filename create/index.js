@@ -5,6 +5,35 @@ var Response = require('./response');
 var Request  = require('./request');
 
 var uuid = require('node-uuid');
+var nodemailer = require('nodemailer');
+var mailAuth = require('/opt/gmail/gmail.json');
+
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: mailAuth
+});
+
+var sendMail = function(Obj){
+	var name = 'Friend';
+	if(Obj.name != Obj.value){
+		name = Obj.name;
+	}
+	var mailOptions = {
+	    from: 'Mind Research Request <projectmindresearch@gmail.com>', // sender address
+	    to: Obj.value, // list of receivers
+	    subject: 'Request for questionnaire response.', // Subject line
+	    html: '<b>Hello ' + name + '</b>,<br><br><p> I am currently conducting a questionnaire in which I would appreciate your response to.  You can directly access it at https://themindspot.com/survey/' + Obj.survey + '/' + Obj.id + ' or with this link: </p><br><a href="https://themindspot.com/survey/' + Obj.survey + '/' + Obj.id + ' + ">Questionnaire Link</a>'// html body
+	};
+
+	// send mail with defined transport object
+	transporter.sendMail(mailOptions, function(error, info){
+	    if(error){
+	        console.log(error);
+	    }else{
+	        console.log('Message sent: ' + info.response);
+	    }
+	});	
+};
 
 module.exports = function(Obj, cb){
 	if(Obj){
@@ -64,14 +93,13 @@ module.exports.respond = function(Obj){
 };
 
 
-module.exports.requestResponse = function(Obj, cb){
-	var newObj = [];
+module.exports.requestResponse = function(Obj){
 	if(Obj[0]){
 		for(var i in Obj){
 			Request(Obj[i], function(err, data){
-				newObj.push(data);				
+				sendMail(data);				
 			});
 		}
+		
 	}
-	return cb(null, newObj);
 };
