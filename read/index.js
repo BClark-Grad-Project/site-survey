@@ -28,8 +28,16 @@ var findResponses = function(Obj, cb){
             if(next == '') {
               userResponse.push(responses[i]);
             } else {
-              userResponse.push(responses[i]);
+              userResponse.push(responses[i]);          
             }
+            var lengt = i;
+            lengt++;
+            if(responses[lengt]){
+              if(responses[i].respondant !== responses[lengt].respondant){
+                surveyResponse.push(userResponse);
+                userResponse = [];
+              } 
+            } else surveyResponse.push(userResponse);
           }
           next = responses[i].respondant;
           var leng = i;
