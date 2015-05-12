@@ -208,7 +208,7 @@ module.exports.surveyResult = function(Obj, cb){
 };
 
 
-module.exports.surveyResult = function(Obj, cb){
+module.exports.requestedResponse = function(Obj, cb){
 	if(Obj){
 		Request(Obj, function(err, respondants){
 			if(err) return cb(err, Obj);
