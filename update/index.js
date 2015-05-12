@@ -1,6 +1,7 @@
 var Survey = require('./survey');
 var Question = require('./question');
 var Option   = require('./option');
+var Request   = require('./request');
 
 module.exports = function(Obj, cb){
 	if(Obj){
@@ -31,3 +32,11 @@ module.exports = function(Obj, cb){
 module.exports.survey    = Survey;
 module.exports.question  = Question;
 module.exports.option    = Option;
+module.exports.request  = Request;
+
+module.exports.requestReturn = funtion(Obj, cb){
+	Request(Obj, {status:true}, function(err, responses){
+		if(err) return cb(err, Obj);
+		else return cb(null, responses);		
+	});
+};

@@ -2,6 +2,8 @@ var Survey = require('./survey');
 var Question = require('./question');
 var Option   = require('./option');
 var Response   = require('./response');
+var Request   = require('./request');
+
 var Sentiment = require('sentiment');
 
 var findResponses = function(Obj, cb){
@@ -116,6 +118,7 @@ module.exports.survey    = Survey;
 module.exports.question  = Question;
 module.exports.option    = Option;
 module.exports.response  = Response;
+module.exports.request   = Request;
 
 module.exports.responses  = function(Obj, cb){
   if(Obj){
@@ -202,4 +205,15 @@ module.exports.surveyResult = function(Obj, cb){
 			});
 		});
 	} else return cb({type:'!No Object To Create'}, Obj);
+};
+
+
+module.exports.surveyResult = function(Obj, cb){
+	if(Obj){
+		Request(Obj, function(err, respondants){
+			if(err) return cb(err, Obj);
+			else return cb(null, respondants);
+		});
+	}
+	
 };

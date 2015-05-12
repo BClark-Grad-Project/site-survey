@@ -22,7 +22,7 @@ var sendMail = function(Obj){
 	    from: 'Mind Research Request <projectmindresearch@gmail.com>', // sender address
 	    to: Obj.value, // list of receivers
 	    subject: 'Request for questionnaire response.', // Subject line
-	    html: '<b>Hello ' + name + '</b>,<br><br><p> I am currently conducting a questionnaire in which I would appreciate your response to.  You can directly access it at https://themindspot.com/survey/' + Obj.survey + '/' + Obj.id + ' or with this link: </p><br><a href="https://themindspot.com/survey/' + Obj.survey + '/' + Obj.id + ' + ">Questionnaire Link</a>'// html body
+	    html: '<p>Hello ' + name + ',</p><p> I am currently conducting a questionnaire in which I would appreciate your response to.  You can directly access it at https://themindspot.com/survey/' + Obj.survey + '/' + Obj.id + ' or with this link: </p><br><a href="https://themindspot.com/survey/' + Obj.survey + '/' + Obj.id + ' + ">Questionnaire Link</a>'// html body
 	};
 
 	// send mail with defined transport object
