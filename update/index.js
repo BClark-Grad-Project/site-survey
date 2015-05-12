@@ -34,9 +34,8 @@ module.exports.question  = Question;
 module.exports.option    = Option;
 module.exports.request  = Request;
 
-module.exports.requestReturn = funtion(Obj, cb){
+module.exports.requestReturn = function(Obj){
 	Request(Obj, {status:true}, function(err, responses){
-		if(err) return cb(err, Obj);
-		else return cb(null, responses);		
+		if(err) console.log(err);
 	});
 };

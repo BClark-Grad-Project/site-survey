@@ -154,7 +154,7 @@ module.exports.surveyResult = function(Obj, cb){
 			if(err) return cb(err, Obj);
 			else findResponses({survey:Obj.id}, function(err, responses){
 				if(err) return cb(err, Obj);
-				else {					
+				else {
 					for(var i in responses){
 					  var guage = true;
 						for(var n in responses[i]){
